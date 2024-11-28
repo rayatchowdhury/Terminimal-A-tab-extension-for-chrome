@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>~/</title>
+        <link rel="shortcut icon" type="image/png" href="favicon.png" />
+        <link rel="stylesheet" type="text/css" href="styles/main.css" />
+    </head>
+    <body id="body">
+        <!-- <header class="status-bar"></header> -->
+        <div class="pad-terminal">
+            <div class="scrollable">
+                <div id="terminal">
+                    <div id="output"></div>
+                    <form class="prompt" onsubmit="return false;">
+                        <span class="green">rayat</span>
+                        <span>@</span>
+                        <span class="cyan">persephone</span>
+                        <span>:</span>
+                        <span class="purple">~</span>
+                        <span class="red">&nbsp;$&nbsp;</span>
+                        <input id="input" tabindex="1" autofocus />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <input
+            type="file"
+            id="bgFileInput"
+            accept="image/*"
+            style="display: none"
+        />
+        <div id="clock" class="clock" style="text-align: center"></div>
+        <script type="module" src="./js/main.js"></script>
+    </body>
+</html>
