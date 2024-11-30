@@ -1,4 +1,3 @@
-
 import { render, error } from './helpers.js';
 import commands from './commands/index.js';
 
@@ -27,6 +26,9 @@ export default class Terminal {
     if (command) {
       try {
         command.execute(args);
+        // Scroll to bottom after command execution
+        const terminal = document.querySelector('.scrollable');
+        terminal.scrollTop = terminal.scrollHeight;
       } catch (err) {
         error('red', 'Error', err.message);
       }

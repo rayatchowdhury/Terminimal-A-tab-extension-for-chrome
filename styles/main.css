@@ -21,9 +21,10 @@ html {
   font-family: "Hack", monospace;
   text-align: center;
   color: var(--fg);
-  background-color: var(--gray);
-  /* background-size: cover; */
-  /* background-position: center; */
+  background-color: var(--bg);
+  background-size: cover;
+  background-position: center;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -43,29 +44,46 @@ body {
 
 .shortcuts-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto 1fr;
-  grid-gap: 2vh;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
 .shortcuts {
-  width: fit-content;
-  margin: 0 0;
-  padding: 0;
+  background: rgba(65, 72, 104, 0.3);
+  border-radius: 10px;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.shortcuts:first-child {
-  font-weight: 900;
+.shortcuts:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+
+.shortcuts p {
+  margin: 0.5rem 0;
+}
+
+/* Remove this rule entirely */
+/* .shortcuts:first-child {
+  font-weight: 900;
+} */
 
 .shortcut {
   text-decoration: none;
   color: var(--fg);
+  transition: all 0.2s;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
 }
 
 .shortcut:hover {
-  font-weight: bolder;
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--cyan);
+  text-decoration: none;
 }
 
 .pad-terminal {
@@ -77,19 +95,38 @@ body {
 
 .scrollable {
   height: 96vh;
-  overflow: auto;
+  overflow-y: auto;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: rgba(65, 72, 104, 0.3);
+  border-radius: 4px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: var(--gray);
+  border-radius: 4px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--light-gray);
 }
 
 #terminal {
   min-height: 100%;
-  /* line-height: 0.5rem; */
   box-sizing: border-box;
-  padding: 1rem;
-  background-color: rgba(21, 22, 30, 0.9);
-  border: 1px hidden var(--fg);
+  padding: 1.5rem;
+  background-color: rgba(21, 22, 30, 0.95);
   border-radius: 15px;
   text-align: left;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 #terminal p {
@@ -98,6 +135,8 @@ body {
 
 .prompt {
   display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
 }
 
 .green {
@@ -143,4 +182,5 @@ body {
   font: inherit;
   border: none;
   color: inherit;
+  caret-color: var(--cyan);
 }
