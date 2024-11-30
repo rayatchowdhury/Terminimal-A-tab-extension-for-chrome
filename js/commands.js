@@ -2,51 +2,33 @@ import executor from "./executors.js";
 
 export default [
   {
-    name: ["help"],
-    description: "Lists available commands",
-    category: "System",
-    execute: executor.help,
+    name: ["search", "s"],
+    description: "Searches DuckDuckGo for the given query",
+    execute: executor.search,
   },
   {
     name: ["ls"],
     description: "Lists available shortcuts",
-    category: "System",
     execute: executor.ls,
+  },
+  {
+    name: ["help"],
+    description: "Lists available commands",
+    execute: executor.help,
   },
   {
     name: ["clear"],
     description: "Clears the output history",
-    category: "System",
     execute: executor.clear,
   },
   {
-    name: ["search", "s"],
-    description: "Searches web (usage: search [engine <name>] [query] - supported engines: duckduckgo, google, bing, brave)",
-    category: "Web",
-    execute: executor.search,
+    name: ["weather"],
+    description: "Displays the weather forecast",
+    execute: executor.weather,
   },
   {
-    name: ["ai"],
-    description: "Ask Gemini AI a question",
-    category: "Web",
-    execute: executor.ai,
+    name: ["motd"],
+    description: "Displays a random famous quote",
+    execute: executor.motd,
   },
-  {
-    name: ["joke"],
-    description: "Displays a random joke",
-    category: "Fun",
-    execute: executor.joke,
-  },
-  {
-    name: ["contests", "cf"],
-    description: "Shows upcoming Codeforces contests",
-    category: "Info",
-    execute: executor.contests,
-  },
-  {
-    name: ["background", "bg"],
-    description: "Set background image URL",
-    category: "System",
-    execute: executor.background,
-  }
 ];
