@@ -8,6 +8,11 @@ export default class Terminal {
   }
 
   init() {
+    // Set prompt values from config
+    document.getElementById('username').textContent = window.config.term.user;
+    document.getElementById('hostname').textContent = window.config.term.host;
+    document.getElementById('directory').textContent = window.config.term.dir;
+
     this.input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const inputValue = this.input.value;
@@ -26,9 +31,13 @@ export default class Terminal {
     if (command) {
       try {
         command.execute(args);
-        // Scroll to bottom after command execution
-        const terminal = document.querySelector('.scrollable');
-        terminal.scrollTop = terminal.scrollHeight;
+        // Updated selector and added error handling
+        setTimeout(() => {
+          const terminal = document.querySelector('.scroll');
+          if (terminal) {
+            terminal.scrollTop = terminal.scrollHeight;
+          }
+        }, 100);
       } catch (err) {
         error('red', 'Error', err.message);
       }

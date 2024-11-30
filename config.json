@@ -1,0 +1,17 @@
+{
+  "term": {
+    "user": "rayat",
+    "host": "persephone",
+    "dir": "~",
+    "font": "Hack",
+    "size": "20px"
+  },
+  "style": {
+    "bg": {
+      "img": "bg.jpg",
+      "blur": "10px"
+    },
+    "term_opacity": 0.9,
+    "menu_opacity": 0.3
+  }
+}

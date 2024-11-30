@@ -4,6 +4,7 @@
   "description": "A terminal-like new tab extension for Chrome",
   "version": "1.0",
   "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"],
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
@@ -14,5 +15,15 @@
   },
   "background": {
     "service_worker": "js/background.js"
-  }
+  },
+  "web_accessible_resources": [{
+    "resources": [
+      "backgrounds/*.jpg",
+      "backgrounds/*.png",
+      "config.json",
+      "styles/*",
+      "ttf/*"
+    ],
+    "matches": ["chrome-extension://*/*"]
+  }]
 }

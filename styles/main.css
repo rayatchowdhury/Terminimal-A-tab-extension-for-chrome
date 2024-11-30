@@ -1,9 +1,6 @@
-@font-face {
-  font-family: "Hack";
-  src: local("Hack Regular"), url("ttf/Hack-Regular.ttf");
-}
-
+/* Base Variables */
 :root {
+  /* Colors */
   --bg: #1a1b26;
   --fg: #c0caf5;
   --black: #15161e;
@@ -15,64 +12,122 @@
   --cyan: #7dcfff;
   --light-gray: #a9b1d6;
   --gray: #414868;
+
+  /* Layout */
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --border-radius: 10px;
+  
+  /* Components */
+  --card-bg: rgba(65, 72, 104, var(--shortcuts-opacity));
+  --terminal-bg: rgba(21, 22, 30, var(--terminal-opacity));
+}
+
+/* Font */
+@font-face {
+  font-family: "Hack";
+  src: local("Hack Regular"), url("ttf/Hack-Regular.ttf");
+}
+
+/* Reset & Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 html {
-  font-family: "Hack", monospace;
-  text-align: center;
-  color: var(--fg);
+  height: 100vh;
   background-color: var(--bg);
-  background-size: cover;
   background-position: center;
-  scroll-behavior: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-html,
 body {
+  height: 100vh;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  font-family: var(--font-family, "Hack"), monospace;
+  font-size: var(--font-size, 14px);
+  color: var(--fg);
   overflow: hidden;
 }
 
-.status-bar {
-  font-size: x-small;
-  height: 3vh;
-  padding: 0;
-  margin-bottom: 1vh;
+/* Layout */
+.container {
+  padding: 2vh;
+  height: 96vh;
 }
 
-.shortcuts-container {
+/* Terminal */
+.terminal {
+  height: 100%;
+  padding: var(--spacing-lg);
+  background-color: var(--terminal-bg);
+  border-radius: var(--border-radius);
+  text-align: left;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(var(--background-blur));
+}
+
+/* Scrollable Area */
+.scroll {
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: rgba(65, 72, 104, 0.3);
+  border-radius: 4px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: var(--gray);
+  border-radius: 4px;
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--light-gray);
+}
+
+/* Grid Layout */
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md);
 }
 
-.shortcuts {
-  background: rgba(65, 72, 104, 0.3);
-  border-radius: 10px;
-  padding: 1rem;
-  backdrop-filter: blur(10px);
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  backdrop-filter: blur(var(--background-blur));
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s;
 }
 
-.shortcuts:hover {
+.card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.shortcuts p {
-  margin: 0.5rem 0;
-}
-
-/* Remove this rule entirely */
-/* .shortcuts:first-child {
-  font-weight: 900;
-} */
-
-.shortcut {
+/* Links */
+.link {
   text-decoration: none;
   color: var(--fg);
   transition: all 0.2s;
@@ -80,107 +135,34 @@ body {
   border-radius: 4px;
 }
 
-.shortcut:hover {
+.link:hover {
   background: rgba(255, 255, 255, 0.1);
   color: var(--cyan);
-  text-decoration: none;
 }
 
-.pad-terminal {
-  padding-top: 2vh;
-  padding-left: 2vh;
-  padding-right: 2vh;
-  height: 96vh;
-}
-
-.scrollable {
-  height: 96vh;
-  overflow-y: auto;
-  box-sizing: border-box;
-  scroll-behavior: auto;
-}
-
-.scrollable::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scrollable::-webkit-scrollbar-track {
-  background: rgba(65, 72, 104, 0.3);
-  border-radius: 4px;
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-  background: var(--gray);
-  border-radius: 4px;
-}
-
-.scrollable::-webkit-scrollbar-thumb:hover {
-  background: var(--light-gray);
-}
-
-#terminal {
-  min-height: 100%;
-  box-sizing: border-box;
-  padding: 1.5rem;
-  background-color: rgba(21, 22, 30, 0.95);
-  border-radius: 15px;
-  text-align: left;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-}
-
-#terminal p {
-  margin: 2px;
-}
-
+/* Command Prompt */
 .prompt {
   display: flex;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: var(--spacing-sm) 0;
 }
 
-.green {
-  color: var(--green);
-}
-
-.cyan {
-  color: var(--cyan);
-}
-
-.purple {
-  color: var(--purple);
-}
-
-.red {
-  color: var(--red);
-}
-
-.yellow {
-  color: var(--yellow);
-}
-
-.blue {
-  color: var(--blue);
-}
-
-.light-gray {
-  color: var(--light-gray);
-}
-
-.gray {
-  color: var(--gray);
-}
-
-.black {
-  color: var(--black);
-}
-
-#input {
+.prompt-input {
   width: 100%;
-  outline: none;
-  background-color: transparent;
-  font: inherit;
+  background: transparent;
   border: none;
   color: inherit;
+  font: inherit;
+  outline: none;
   caret-color: var(--cyan);
 }
+
+/* Colors */
+.red { color: var(--red); }
+.green { color: var(--green); }
+.yellow { color: var(--yellow); }
+.blue { color: var(--blue); }
+.purple { color: var(--purple); }
+.cyan { color: var(--cyan); }
+.gray { color: var(--gray); }
+.light-gray { color: var(--light-gray); }
