@@ -64,13 +64,19 @@ body {
 
 /* Layout */
 .container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   padding: 2vh;
-  height: 96vh;
 }
 
 /* Terminal */
 .terminal {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   padding: var(--spacing-lg);
   background-color: var(--terminal-bg);
   border-radius: var(--border-radius);
@@ -83,7 +89,7 @@ body {
 .scroll {
   height: 100%;
   overflow-y: auto;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 .scroll::-webkit-scrollbar {
