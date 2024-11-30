@@ -7,6 +7,7 @@ const dateDiffInMinutes = (a, b) => {
 };
 
 const render = (text, needsMarkup = true) => {
+  const output = document.getElementById('output');
   if (needsMarkup) {
     output.innerHTML += `<p>${text}</p>`;
   } else {
@@ -16,7 +17,7 @@ const render = (text, needsMarkup = true) => {
 };
 
 const error = (color, type, message) => {
-  render(`<p><span class="${color}">${type}</span>: ${message}</p>`);
+  render(`<span class="${color}">${type}</span>: ${message}`);
 };
 
 const getWeather = () => {
@@ -77,4 +78,4 @@ const getWeather = () => {
 
 const getDate = () => {};
 
-export { render, error, getWeather, getDate, dateDiffInMinutes };
+export { render, error, getWeather, dateDiffInMinutes };
