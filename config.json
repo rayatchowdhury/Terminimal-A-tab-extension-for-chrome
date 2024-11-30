@@ -1,10 +1,10 @@
 {
   "term": {
-    "user": "rayat",
-    "host": "persephone",
+    "user": "user",
+    "host": "terminal",
     "dir": "~",
     "font": "Hack",
-    "size": "18px"
+    "size": "17px"
   },
   "style": {
     "bg": {
