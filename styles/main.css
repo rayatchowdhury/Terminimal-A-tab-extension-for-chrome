@@ -50,6 +50,9 @@ html {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  /* Add content-visibility for better performance */
+  content-visibility: auto;
+  contain: layout style paint;
 }
 
 body {
@@ -70,6 +73,9 @@ body {
   right: 0;
   bottom: 0;
   padding: 2vh;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Terminal */
@@ -83,6 +89,13 @@ body {
   text-align: left;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(var(--background-blur));
+  will-change: opacity;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
 
 /* Scrollable Area */

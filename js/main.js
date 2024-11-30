@@ -1,35 +1,40 @@
 import Terminal from './terminal.js';
 
-let config;
-
-async function loadConfig() {
-  const response = await fetch(chrome.runtime.getURL('config.json'));
-  return await response.json();
-}
-
 async function initializeApp() {
   try {
-    config = await loadConfig();
+    // Load config immediately
+    const config = await (await fetch(chrome.runtime.getURL('config.json'))).json();
     window.config = config;
-    
-    const terminal = new Terminal('#input', '#output');
-    terminal.init();
-    terminal.handleCommand('ls');
 
-    // Simplified background handling
-    const bgUrl = chrome.runtime.getURL(`backgrounds/${config.style.bg.img}`);
-    document.documentElement.style.backgroundImage = `url("${bgUrl}")`;
-    
-    // Apply other styles
+    // Apply critical styles first
     const root = document.documentElement;
-    root.style.setProperty('--font-family', config.term.font);
-    root.style.setProperty('--font-size', config.term.size);
-    root.style.setProperty('--terminal-opacity', config.style.term_opacity);
-    root.style.setProperty('--shortcuts-opacity', config.style.menu_opacity);
-    root.style.setProperty('--background-blur', config.style.bg.blur);
+    root.style.backgroundImage = `url(${chrome.runtime.getURL(`backgrounds/${config.style.bg.img}`)})`;
+    
+    // Batch style updates in one frame
+    requestAnimationFrame(() => {
+      const styles = {
+        '--font-family': config.term.font,
+        '--font-size': config.term.size,
+        '--terminal-opacity': config.style.term_opacity,
+        '--shortcuts-opacity': config.style.menu_opacity,
+        '--background-blur': config.style.bg.blur
+      };
+      
+      Object.entries(styles).forEach(([prop, value]) => {
+        root.style.setProperty(prop, value);
+      });
+
+      // Initialize terminal
+      const terminal = new Terminal('#input', '#output');
+      terminal.init();
+      terminal.handleCommand('ls');
+    });
+
   } catch (error) {
     console.error('Initialization error:', error);
+    document.body.innerHTML = `<div style="color: var(--red)">Failed to initialize: ${error.message}</div>`;
   }
 }
 
-window.addEventListener('load', initializeApp);
+// Use 'DOMContentLoaded' instead of 'load' for faster initialization
+document.addEventListener('DOMContentLoaded', initializeApp);
