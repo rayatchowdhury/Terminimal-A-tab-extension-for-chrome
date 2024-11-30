@@ -24,7 +24,7 @@ html {
   background-color: var(--bg);
   background-size: cover;
   background-position: center;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 html,
@@ -97,7 +97,7 @@ body {
   height: 96vh;
   overflow-y: auto;
   box-sizing: border-box;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 .scrollable::-webkit-scrollbar {
