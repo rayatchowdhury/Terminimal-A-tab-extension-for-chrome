@@ -5,6 +5,8 @@ export default class Terminal {
   constructor(inputSelector, outputSelector) {
     this.input = document.querySelector(inputSelector);
     this.output = document.querySelector(outputSelector);
+    this.history = [];
+    this.historyIndex = -1;
   }
 
   init() {
@@ -14,10 +16,35 @@ export default class Terminal {
     document.getElementById('directory').textContent = window.config.term.dir;
 
     this.input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const inputValue = this.input.value;
-        this.handleCommand(inputValue);
-        this.input.value = '';
+      switch (e.key) {
+        case 'Enter':
+          const inputValue = this.input.value;
+          if (inputValue.trim()) {
+            this.history.push(inputValue);
+            this.historyIndex = this.history.length;
+          }
+          this.handleCommand(inputValue);
+          this.input.value = '';
+          break;
+        
+        case 'ArrowUp':
+          e.preventDefault();
+          if (this.historyIndex > 0) {
+            this.historyIndex--;
+            this.input.value = this.history[this.historyIndex];
+          }
+          break;
+
+        case 'ArrowDown':
+          e.preventDefault();
+          if (this.historyIndex < this.history.length - 1) {
+            this.historyIndex++;
+            this.input.value = this.history[this.historyIndex];
+          } else {
+            this.historyIndex = this.history.length;
+            this.input.value = '';
+          }
+          break;
       }
     });
     // ...existing code...
